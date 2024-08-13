@@ -1,0 +1,102 @@
+/*
+ * I2CMasterTxString.c
+ *
+ *  Created on: May 24, 2024
+ *      Author: romsha
+ */
+
+
+#include<stdio.h>
+#include<string.h>
+#include"stm32f407xx_gpio_drv.h"
+#include"stm32f407xx_i2c_drv.h"
+
+#define MY_ADDR					0x61
+#define ARD_ADDR				0x68
+#define MAX_BUFFER				32U
+#define READ_DATA_LEN			0x52
+
+void delay(uint32_t count){
+	volatile int i;
+	//delay
+	for(i=0;i<count;i++);
+}
+
+int main(){
+
+	GPIO_Handle_t Button_PA6 ;
+	GPIO_Handle_t I2C1_PB6_PB7; //PB9 is used for Single Wire interface module (swim)
+	I2C_Handle_t  I2C1Master ;
+	I2C_Message_t I2CMsg ;
+	uint8_t buffer[MAX_BUFFER];
+	uint8_t buttonRead = FALSE;
+
+	//configure GPIO
+	//button
+	Button_PA6.pGPIO = GPIOA;
+	Button_PA6.GPIOPinConfig.GPIOmode = INPUT_MODE;
+	Button_PA6.GPIOPinConfig.GPIOPullUpPullDown = PULL_UP	;
+	Button_PA6.GPIOPinConfig.GPIO_PinNum = PIN6;
+	Button_PA6.GPIOPinConfig.GPIOPort = PORTA;
+	Button_PA6.GPIOPinConfig.GPIOspeed = MED_SPEED;
+	GPIO_Init(&Button_PA6);
+
+	//configure the I2C message handle
+	buffer[0]   	  = READ_DATA_LEN;
+	I2CMsg.I2CChannel = I2C_1;
+	I2CMsg.msgBuffer  = &buffer[0];
+	I2CMsg.msgLen     = 1;
+	I2CMsg.msgStatus  = TX_NOT_STARTED;
+	I2CMsg.slaveAddr  = ARD_ADDR;
+
+
+
+	//I2C pins
+	I2C1_PB6_PB7.pGPIO = GPIOB;
+	I2C1_PB6_PB7.GPIOPinConfig.GPIOmode    = ALT_FUNC;
+	I2C1_PB6_PB7.GPIOPinConfig.GPIOAltFunc = AF4;
+	I2C1_PB6_PB7.GPIOPinConfig.GPIOspeed   = LOW_SPEED;
+	I2C1_PB6_PB7.GPIOPinConfig.GPIOPort    = PORTB;
+	I2C1_PB6_PB7.GPIOPinConfig.GPIOOutputType = OP_TYPE_OD;
+
+	//I2C1_SCL
+	I2C1_PB6_PB7.GPIOPinConfig.GPIO_PinNum = PIN6;
+	GPIO_Init(&I2C1_PB6_PB7);
+
+	I2C1_PB6_PB7.GPIOPinConfig.GPIO_PinNum = PIN7;
+	GPIO_Init(&I2C1_PB6_PB7);
+
+
+
+	//configure I2C1
+	I2C1Master.pI2Cx = I2C1;
+	I2C1Master.I2CConfig.I2C_ACKControl = I2C_ACK_ENABLE;
+	I2C1Master.I2CConfig.I2C_FMDutyCycle = FM_DUTY_CYCLE_2;
+	I2C1Master.I2CConfig.I2C_SCLSpeed    = I2C_STANDARD_MODE_100K;
+	I2C1Master.I2CConfig.I2C_DeviceAddress = MY_ADDR; //doesnt matter because it is master
+	I2C1Master.I2CConfig.I2C_RepeatedStart = TRUE;
+
+	I2C_Init(&I2C1Master);
+
+
+
+	while(1){
+
+		//while button is not pressed
+		//button is active low
+		buttonRead = GPIO_readFrmInputPin(GPIOA,PIN6);
+		if(buttonRead==FALSE){
+			delay(10000);
+			if((buttonRead = GPIO_readFrmInputPin(GPIOA,PIN6))==FALSE){
+				//it means button is pressed
+				I2C_MasterTx(&I2C1Master,&I2CMsg);
+			}
+			else{
+				delay(100000);
+			}
+		}
+
+	}
+
+	return 0;
+}
