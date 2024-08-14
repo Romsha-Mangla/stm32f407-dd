@@ -150,7 +150,7 @@ typedef struct {
 	__vo uint32_t RCC_PLLI2SCFGR;				//				84
 } RCC_reg_t;
 
-#define RCC										(RCC_reg_t*)RCC_BASEADDR
+#define RCC								(RCC_reg_t*)RCC_BASEADDR
 
 /* macro to enable clock for GPIO port A*/
 #define EN_PCLK_GPIOA()							((RCC)->RCC_AHB1ENR|=(1<<0))
