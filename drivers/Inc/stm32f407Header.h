@@ -17,12 +17,12 @@
 #define __vo volatile //short form of volatile keyword
 
 //describe the base address of the memories - flash and SRAM
-//the memory address must be unsigned type so put 'U' at the end of the address below
-#define FLASH_BASEADDR						0x08000000UL //( 1Mb divided into sectors)
-#define SRAM1_BASEADDR						0x20000000UL //( 112Kb )
+//the memory address must be unsigned type so have put 'U' at the end of the address below
+#define FLASH_BASEADDR						0x08000000UL 	//( 1Mb divided into sectors)
+#define SRAM1_BASEADDR						0x20000000UL	//( 112Kb )
 #define SRAM2_BASEADDR						0x2001C000 	// ( 16kb )
-#define SRAM								SRAM1_BASEADDR
-#define ROM_BASEADDR						0x1FFF0000UL //( 29Kb )also known as system mem
+#define SRAM							SRAM1_BASEADDR
+#define ROM_BASEADDR						0x1FFF0000UL 	//( 29Kb )also known as system mem
 
 //Bus domain
 #define APB1PERIPH_BASEADDR					0x40000000UL
@@ -56,9 +56,9 @@
 #define UART8_BASEADDR						(APB1PERIPH_BASEADDR+ 0x7C00U)
 //SPI
 #define SPI1_BASEADDR						(APB2PERIPH_BASEADDR+ 0x3000U)
-#define SPI2_BASEADDR						(APB1PERIPH_BASEADDR+ 0x3800U) //also I2S2
-#define SPI3_BASEADDR						(APB1PERIPH_BASEADDR+ 0x3C00U) //also I2S3
-//#define SPI4_BASEADDR						(APB2PERIPH_BASEADDR+ 0x3400U) //not part of uC, address range is reserved
+#define SPI2_BASEADDR						(APB1PERIPH_BASEADDR+ 0x3800U) 	//also I2S2
+#define SPI3_BASEADDR						(APB1PERIPH_BASEADDR+ 0x3C00U) 	//also I2S3
+//#define SPI4_BASEADDR						(APB2PERIPH_BASEADDR+ 0x3400U) 	//not part of uC, address range is reserved
 //#define SPI5_BASEADDR						(APB2PERIPH_BASEADDR+ 0x5000U)	//not part of uC, address range is reserved
 //#define SPI6_BASEADDR						(APB2PERIPH_BASEADDR+ 0x5400U)	//not part of uC, address range is reserved
 
@@ -71,36 +71,36 @@
 #define EXTI_BASEADDR						(APB2PERIPH_BASEADDR+ 0x3C00U)
 
 typedef struct {
-	__vo uint32_t EXTI_IMR;	//interrupt mask 0 means interrupt is masked and 1 means not masked 00
-	__vo uint32_t EXTI_EMR;	//event mask register												04
-	__vo uint32_t EXTI_RTSR;//rising edge trigger												08
+	__vo uint32_t EXTI_IMR;	//interrupt mask 0 means interrupt is masked and 1 means not masked 	00
+	__vo uint32_t EXTI_EMR;	//event mask register							04
+	__vo uint32_t EXTI_RTSR;//rising edge trigger							08
 	__vo uint32_t EXTI_FTSR;//falling trigger selection 0 means disabled and 1 means FT enabled	0C
-	__vo uint32_t EXTI_SWIER;//software interrupt on line x										10
-	__vo uint32_t EXTI_PR;//Pending register 1 means selected trigger request occured			14
+	__vo uint32_t EXTI_SWIER;//software interrupt on line x						10
+	__vo uint32_t EXTI_PR;//Pending register 1 means selected trigger request occured		14
 } EXTI_reg_t;
 
 #define EXTI								(EXTI_reg_t*)(EXTI_BASEADDR)
 
 typedef struct {
-	__vo uint32_t SYSCFG_MEMRMP;			//configuration of memory remap	00
+	__vo uint32_t SYSCFG_MEMRMP;				//configuration of memory remap	00
 	__vo uint32_t SYSCFG_PMC;				//peripheral mode cfg register  04
-	__vo uint32_t SYSCFG_EXTICR[4];			//ext int cfg register	pin0 s	08
-	__vo uint32_t SYSCFG_CMPCR;				//								20
+	__vo uint32_t SYSCFG_EXTICR[4];				//ext int cfg register	pin0 s	08
+	__vo uint32_t SYSCFG_CMPCR;				//				20
 } SYSCFG_reg_t;
 
 #define SYSCFG								(SYSCFG_reg_t*)(SYSCFG_BASEADDR)
 
 typedef struct {
 	__vo uint32_t MODER; 					//mode register for GPIO 	00
-	__vo uint32_t OTYPER; 					//output type				04
+	__vo uint32_t OTYPER; 					//output type			04
 	__vo uint32_t OSPEEDR; 					//output speed register		08
-	__vo uint32_t PUPDR;					//push pull					0C
-	__vo uint32_t IDR;						//input data register		10
-	__vo uint32_t ODR;						//output data register		14
-	__vo uint32_t BSRR;						//bit set/reset register	18
-	__vo uint32_t LCKR;						//config lock register		1C
-	__vo uint32_t AFRL;						//alternate function select	20
-	__vo uint32_t AFRH;						//alternate function select	24
+	__vo uint32_t PUPDR;					//push pull			0C
+	__vo uint32_t IDR;					//input data register		10
+	__vo uint32_t ODR;					//output data register		14
+	__vo uint32_t BSRR;					//bit set/reset register	18
+	__vo uint32_t LCKR;					//config lock register		1C
+	__vo uint32_t AFRL;					//alternate function select	20
+	__vo uint32_t AFRH;					//alternate function select	24
 } GPIO_reg_t;
 
 #define GPIOA								(GPIO_reg_t*)GPIOA_BASEADDR
@@ -114,40 +114,40 @@ typedef struct {
 #define GPIOI								(GPIO_reg_t*)GPIOI_BASEADDR
 
 typedef struct {
-	__vo uint32_t RCC_CR;					//clock register			00
+	__vo uint32_t RCC_CR;					//clock register		00
 	__vo uint32_t RCC_PLLCFGR;				//PLL config register		04
 	__vo uint32_t RCC_CFGR;					//rcc configuration reg		08
 	__vo uint32_t RCC_CIR;					//							0C
-	__vo uint32_t RCC_AHB1RSTR;				// abh1 prphl reset			10
+	__vo uint32_t RCC_AHB1RSTR;				// abh1 prphl reset		10
 	__vo uint32_t RCC_AHB2RSTR;				//							14
 	__vo uint32_t RCC_AHB3RSTR;				//							18
-	__vo uint32_t reserved1;				//reserved					1C
-	__vo uint32_t RCC_APB1RSTR;				//rcc APB1 reset			20
+	__vo uint32_t reserved1;				//reserved			1C
+	__vo uint32_t RCC_APB1RSTR;				//rcc APB1 reset		20
 	__vo uint32_t RCC_APB2RSTR;				//							24
-	__vo uint32_t reserved2;				//reserved					28
-	__vo uint32_t reserved3;				//reserved					2C
+	__vo uint32_t reserved2;				//reserved			28
+	__vo uint32_t reserved3;				//reserved			2C
 	__vo uint32_t RCC_AHB1ENR;				//en clk for peripheral		30
 	__vo uint32_t RCC_AHB2ENR;				//							34
 	__vo uint32_t RCC_AHB3ENR;				//							38
-	__vo uint32_t reserved4;				//reserved					3C
+	__vo uint32_t reserved4;				//reserved			3C
 	__vo uint32_t RCC_APB1ENR;				//							40
 	__vo uint32_t RCC_APB2ENR;				//							44
-	__vo uint32_t reserved5;				//reserved					48
-	__vo uint32_t reserved6;				//reserved					4C
-	__vo uint32_t RCC_AHB1LPENR;			//en lp clk					50
-	__vo uint32_t RCC_AHB2LPENR;			//							54
-	__vo uint32_t RCC_AHB3LPENR;			//							58
-	__vo uint32_t reserved7;				//reserved					5C
-	__vo uint32_t RCC_APB1LPENR;			//							60
-	__vo uint32_t RCC_APB2LPENR;			//							64
-	__vo uint32_t reserved8;				//reserved					68
-	__vo uint32_t reserved9;				//reserved					6C
+	__vo uint32_t reserved5;				//reserved			48
+	__vo uint32_t reserved6;				//reserved			4C
+	__vo uint32_t RCC_AHB1LPENR;				//en lp clk			50
+	__vo uint32_t RCC_AHB2LPENR;				//				54
+	__vo uint32_t RCC_AHB3LPENR;				//				58
+	__vo uint32_t reserved7;				//reserved			5C
+	__vo uint32_t RCC_APB1LPENR;				//				60
+	__vo uint32_t RCC_APB2LPENR;				//				64
+	__vo uint32_t reserved8;				//reserved			68
+	__vo uint32_t reserved9;				//reserved			6C
 	__vo uint32_t RCC_BDCR;					//							70
 	__vo uint32_t RCC_CSR;					//							74
-	__vo uint32_t reserved10;				//reserved					78
-	__vo uint32_t reserved11;				//reserved					7C
+	__vo uint32_t reserved10;				//reserved			78
+	__vo uint32_t reserved11;				//reserved			7C
 	__vo uint32_t RCC_SSCGR;				//							80
-	__vo uint32_t RCC_PLLI2SCFGR;			//							84
+	__vo uint32_t RCC_PLLI2SCFGR;				//				84
 } RCC_reg_t;
 
 #define RCC										(RCC_reg_t*)RCC_BASEADDR
@@ -279,19 +279,19 @@ __vo uint32_t USART_GTPR;							//18    reset value 0x00000000
 #define SET_USART1()								((RCC)->RCC_APB2RSTR = (RCC)->RCC_APB2RSTR &(~(1<<4)))
 #define SET_USART2()								((RCC)->RCC_APB1RSTR=  (RCC)->RCC_APB1RSTR &(~(1<<17)))
 #define SET_USART3()								((RCC)->RCC_APB1RSTR=  (RCC)->RCC_APB1RSTR &(~(1<<18)))
-#define SET_UART4()									((RCC)->RCC_APB1RSTR=  (RCC)->RCC_APB1RSTR &(~(1<<19)))
-#define SET_UART5()									((RCC)->RCC_APB1RSTR=  (RCC)->RCC_APB1RSTR &(~(1<<20)))
+#define SET_UART4()								((RCC)->RCC_APB1RSTR=  (RCC)->RCC_APB1RSTR &(~(1<<19)))
+#define SET_UART5()								((RCC)->RCC_APB1RSTR=  (RCC)->RCC_APB1RSTR &(~(1<<20)))
 #define SET_USART6()								((RCC)->RCC_APB2RSTR = (RCC)->RCC_APB2RSTR &(~(1<<5)))
 
 typedef struct {
 	__vo uint32_t SPI_CR1; //SPI control register	 	00 reset value 0x00000000
 	__vo uint32_t SPI_CR2; 					//SPI control register		04
-	__vo uint32_t SPI_SR; 					//SPI						08
-	__vo uint8_t SPI_DR;					//SPI data register			0C
+	__vo uint32_t SPI_SR; 					//SPI				08
+	__vo uint8_t SPI_DR;					//SPI data register		0C
 	__vo uint32_t SPI_CRCPR;				//holds CRC polynomial		10
-	__vo uint32_t SPI_RXCRCR;				//RX CRC					14
-	__vo uint32_t SPI_TXCRCR;				//TXCRC						18
-	__vo uint32_t SPI_I2SCFGR;				//SPI I2S config			1C
+	__vo uint32_t SPI_RXCRCR;				//RX CRC			14
+	__vo uint32_t SPI_TXCRCR;				//TXCRC				18
+	__vo uint32_t SPI_I2SCFGR;				//SPI I2S config		1C
 	__vo uint32_t SPI_I2SPR;				//SPI I2S preset value		20
 } SPI_reg_t;
 
@@ -312,13 +312,13 @@ typedef struct {
 typedef struct {
 	__vo uint32_t I2C_CR1;								//control register 1
 	__vo uint32_t I2C_CR2;								//control register 2
-	__vo uint32_t I2C_OAR1;                             //Own Address register 1
+	__vo uint32_t I2C_OAR1;                            				//Own Address register 1
 	__vo uint32_t I2C_OAR2;								//Own Address register 2
 	__vo uint32_t I2C_DR;								//Data Register
 	__vo uint32_t I2C_SR1;								//Status register 1
 	__vo uint32_t I2C_SR2;								//Status register 2
 	__vo uint32_t I2C_CCR;								//clock control register
-	__vo uint32_t I2C_TRISE;						//Maximum rise time in SM/FM
+	__vo uint32_t I2C_TRISE;							//Maximum rise time in SM/FM
 } I2C_reg_t;
 
 #define I2C1										((I2C_reg_t*)I2C1_BASEADDR)
@@ -369,12 +369,12 @@ typedef struct {
  * IRQ number connected to EXTI line
  */
 #define PVD_IRQ					1			//PVD through EXTI line detection interrupt
-#define TIMESTAMP_IRQ			2			//Tamper and TimeStamp interrupts through the EXTI line
-#define RTC_WAKEUP_IRQ			3			//RTC Wakeup interrupt through the EXTI line
-#define RTC_ALARM_IRQ			41			//RTC alarm
-#define USB_OTG_FS_WAKEUP_IRQ	42			//USB On-The-Go FS Wakeup through EXTI line interrupt
-#define ETH_WAKEUP_IRQ			62			//Ethernet Wakeup through EXTI line interrupt
-#define USB_OTG_HS_WAKEUP_IRQ	76			//USB On The Go HS Wakeup through EXTI line interrupt
+#define TIMESTAMP_IRQ				2			//Tamper and TimeStamp interrupts through the EXTI line
+#define RTC_WAKEUP_IRQ				3			//RTC Wakeup interrupt through the EXTI line
+#define RTC_ALARM_IRQ				41			//RTC alarm
+#define USB_OTG_FS_WAKEUP_IRQ			42			//USB On-The-Go FS Wakeup through EXTI line interrupt
+#define ETH_WAKEUP_IRQ				62			//Ethernet Wakeup through EXTI line interrupt
+#define USB_OTG_HS_WAKEUP_IRQ			76			//USB On The Go HS Wakeup through EXTI line interrupt
 
 /*
  * IRQ line connected to EXTI(GPIO)
@@ -387,7 +387,7 @@ typedef struct {
 #define EXTI3_IRQ		9			//EXTI line 3 interrupt
 #define EXTI4_IRQ		10			//EXTI line 4 interrupt
 #define EXTI9_5_IRQ		23			//EXTI line 9:5 interrupt
-#define EXTI15_10_IRQ	40			//EXTI line 15:10 interrupt
+#define EXTI15_10_IRQ		40			//EXTI line 15:10 interrupt
 
 /*
  * IRQ line connected to USART
@@ -430,7 +430,7 @@ typedef struct {
 /*
  * macro functions
  */
-#define READ_BIT_VALUE(reg,bit)						((reg>>bit)&1 )
+#define READ_BIT_VALUE(reg,bit)							((reg>>bit)&1 )
 #define SET_BIT(reg,bit)							(reg|=(1<<bit))
 #define CLEAR_BIT(reg,bit)							(reg&=(~(1<<bit)))
 
@@ -440,32 +440,32 @@ typedef struct {
 #define  CS_HSI 				0
 #define  CS_HSE					1
 #define  CS_PLL					2
-#define  CLOCK_SOURCE_BITMASK	((1<<3)|(1<<2))
-#define  CLOCK_APB1_BITMASK		((1<<12)|(1<<11)|(1<<10))
-#define  CLOCK_APB2_BITMASK     ((1<<15)|(1<<14)|(1<<13))
-#define  CLOCK_AHB_BITMASK		((1<<7)|(1<<6)|(1<<5)|(1<<4))
+#define  CLOCK_SOURCE_BITMASK			((1<<3)|(1<<2))
+#define  CLOCK_APB1_BITMASK			((1<<12)|(1<<11)|(1<<10))
+#define  CLOCK_APB2_BITMASK     		((1<<15)|(1<<14)|(1<<13))
+#define  CLOCK_AHB_BITMASK			((1<<7)|(1<<6)|(1<<5)|(1<<4))
 
 /*
  * RCC CFGR bit fields
  */
 #define SWS				2				//bit 3:2 system clock switch status
-#define PPRE1			10				//bit 12:10 APB low speed prescaler
-#define PPRE2			13				//bit 13:15 APB high speed prescaler
-#define ISAPB1DIV		12				//if bit 12 is 0, it means APB clock is not divided
-#define HPRE			4				//bit 7:4 AHB prescaler
-#define ISAHBDIV		7				//if bit 7 is 0, it means AHB clock is not divided
+#define PPRE1				10				//bit 12:10 APB low speed prescaler
+#define PPRE2				13				//bit 13:15 APB high speed prescaler
+#define ISAPB1DIV			12				//if bit 12 is 0, it means APB clock is not divided
+#define HPRE				4				//bit 7:4 AHB prescaler
+#define ISAHBDIV			7				//if bit 7 is 0, it means AHB clock is not divided
 
 //error macros
 #define I2C_INTERRUPT_CONFIG_ERROR			0xA5
 #define SPI_INTERRUPT_CONFIG_ERROR			0x5A
-#define USART_INTERRUPT_CONFIG_ERROR		0x69
+#define USART_INTERRUPT_CONFIG_ERROR			0x69
 
 #ifdef APP_DEBUG
 //debug log buffer of 1K size
 char dbgBuf[1024];
 //error strings
 #define I2C_INTERRUPT_HANDLE_ERROR			"I2C global message structure cannot be NULL\n\r"
-#define USART_INTERRUPT_HANDLE_ERROR		"USART global message structure cannot be NULL\n\r"
+#define USART_INTERRUPT_HANDLE_ERROR			"USART global message structure cannot be NULL\n\r"
 #endif
 
 #endif /* DRIVERS_INC_STM32F407HEADER_H_ */
