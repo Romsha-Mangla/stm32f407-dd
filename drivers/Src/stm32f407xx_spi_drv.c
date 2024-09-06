@@ -14,9 +14,9 @@
 //flags
 static uint8_t SPI_IntializationDone   			= FALSE;
 static uint8_t SPI_InterruptConfigDone 			= FALSE;
-__vo static uint8_t SPI1_TransmissionInProgress	= FALSE;
-__vo static uint8_t SPI2_TransmissionInProgress	= FALSE;
-__vo static uint8_t SPI3_TransmissionInProgress	= FALSE;
+__vo static uint8_t SPI1_TransmissionInProgress		= FALSE;
+__vo static uint8_t SPI2_TransmissionInProgress		= FALSE;
+__vo static uint8_t SPI3_TransmissionInProgress		= FALSE;
 __vo static uint8_t SPI1_ReadInProgress			= FALSE;
 __vo static uint8_t SPI2_ReadInProgress			= FALSE;
 __vo static uint8_t SPI3_ReadInProgress			= FALSE;
@@ -27,7 +27,7 @@ __vo static uint8_t SPI3_ReadInProgress			= FALSE;
 static SPI_Message_t SPIWrite[SPI_3];
 static SPI_Message_t SPIRead[SPI_3];
 
-static void SPI_PeriClkCtrl(SPI_reg_t *pSPIx, uint8_t IsEnabled );
+static void SPI_PeriClkCtrl(SPI_reg_t *pSPIx, uint8_t IsEnabled);
 static void SPI_RXIConfig(SPI_reg_t * pSPI,uint8_t IsEnable);
 static void SPI_TXIConfig(SPI_reg_t * pSPI,uint8_t IsEnable);
 
@@ -198,7 +198,6 @@ void SPI_Init(SPI_Handle_t *pSPIHandle)
  * @Note              -  blocking call
 
  */
-
 void SPI_ReceiveData(__vo SPI_reg_t* pSPI, void *pBuffer, uint32_t vDatalen)
 {
 	assert(pSPI);
@@ -266,7 +265,6 @@ void SPI_ReceiveData(__vo SPI_reg_t* pSPI, void *pBuffer, uint32_t vDatalen)
  * @Note              -  this is a blocking call
 
  */
-
 void SPI_SendData(__vo SPI_reg_t* pSPI, void *pBuffer, uint32_t vDataLen )
 {
 	assert(pSPI);
@@ -372,7 +370,6 @@ void SPI_IRQConfig(InterruptHandle* pIntHandle)
  * @Note              -  this function will enable the interrupts if the irq config is already done.
 
  */
-
 void SPI_EnableInterrupt(InterruptHandle* pIntHandle)
 {
 	assert(pIntHandle!=NULL);
@@ -511,7 +508,6 @@ void SPI3_IRQHandler()
  * @Note              -
  *
  */
-
 void SPI_SendDataInt(SPI_Message_t *SPIMsgHandle)
 {
 
@@ -816,7 +812,6 @@ void SPI_Disable(__vo SPI_reg_t* pSPIx)
  * @Note              -  none
 
  */
-
 uint8_t SPI_IsRXFlagSet(__vo SPI_reg_t* pSPIx)
 {
 	//there is data in RX buffer, RXNE remains set
@@ -841,7 +836,6 @@ uint8_t SPI_IsRXFlagSet(__vo SPI_reg_t* pSPIx)
  * @Note              -  none
 
  */
-
 uint8_t SPI_IsTXFlagSet(__vo SPI_reg_t* pSPIx){
 
 	//when TXE is set it means TX buffer is empty,
@@ -866,7 +860,6 @@ uint8_t SPI_IsTXFlagSet(__vo SPI_reg_t* pSPIx){
  * @Note              -  none
 
  */
-
 void SPI_reset(SPI_reg_t *pSPIx)
 {
 
@@ -955,7 +948,6 @@ void SPI_PeriClkCtrl( SPI_reg_t *pSPIx, uint8_t IsEnabled )
  * @Note              -  none
 
  */
-
 void SPI1Write()
 {
 	if(((SPI1->SPI_CR1>>DFF)&1)==RESET)
@@ -1007,7 +999,6 @@ void SPI1Write()
  * @Note              -  none
 
  */
-
 void SPI2Write()
 {
 	if(((SPI2->SPI_CR1>>DFF)&1)==RESET)
@@ -1057,7 +1048,6 @@ void SPI2Write()
  * @Note              -  none
 
  */
-
 void SPI3Write()
 {
 	if(((SPI3->SPI_CR1>>DFF)&1)==RESET)
@@ -1107,7 +1097,6 @@ void SPI3Write()
  * @Note              -  none
 
  */
-
 void SPI1Read()
 {
 	if(((SPI1->SPI_CR1>>DFF)&1)==RESET)
@@ -1158,7 +1147,6 @@ void SPI1Read()
  * @Note              -  none
 
  */
-
 void SPI2Read()
 {
 	if(((SPI2->SPI_CR1>>DFF)&1)==RESET)
@@ -1209,7 +1197,6 @@ void SPI2Read()
  * @Note              -  none
 
  */
-
 void SPI3Read()
 {
 	if(((SPI3->SPI_CR1>>DFF)&1)==RESET)
