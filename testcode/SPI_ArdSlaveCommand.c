@@ -11,27 +11,27 @@
 #include<string.h>
 #include<stdio.h>
 
-#define SLAVE_ACK				0xF5
-#define SLAVE_NACK				0xA5
+#define SLAVE_ACK						0xF5
+#define SLAVE_NACK						0xA5
 
 //command codes
-#define COMMAND_LED_CTRL          0x50
-#define COMMAND_SENSOR_READ       0x51
-#define COMMAND_LED_READ          0x52
-#define COMMAND_PRINT             0x53
-#define COMMAND_ID_READ           0x54
-#define TOTAL_COMMANDS				5
+#define COMMAND_LED_CTRL          		0x50
+#define COMMAND_SENSOR_READ       		0x51
+#define COMMAND_LED_READ         		0x52
+#define COMMAND_PRINT             		0x53
+#define COMMAND_ID_READ           		0x54
+#define TOTAL_COMMANDS					5
 
-#define ARD_LED						9
-#define LED_ON     					1
-#define LED_OFF   				    0
+#define ARD_LED							9
+#define LED_ON     						1
+#define LED_OFF   						0
 
 //arduino analog pins
-#define ANALOG_PIN0   0
-#define ANALOG_PIN1   1
-#define ANALOG_PIN2   2
-#define ANALOG_PIN3   3
-#define ANALOG_PIN4   4
+#define ANALOG_PIN0   					0
+#define ANALOG_PIN1   					1
+#define ANALOG_PIN2   					2
+#define ANALOG_PIN3   					3
+#define ANALOG_PIN4   					4
 
 
 void delay(uint32_t count){
@@ -84,11 +84,11 @@ int main()
 
 	//configure the user button
 	UserButton.pGPIO = GPIOA;
-	UserButton.GPIOPinConfig.GPIOPort    = PORTA;
-	UserButton.GPIOPinConfig.GPIO_PinNum = PIN0;
-	UserButton.GPIOPinConfig.GPIOspeed   = HIGH_SPEED;
-	UserButton.GPIOPinConfig.GPIOmode    = INPUT_MODE;
-	UserButton.GPIOPinConfig.GPIOPullUpPullDown = NO_PU_NO_PD;
+	UserButton.GPIOPinConfig.GPIOPort    			= PORTA;
+	UserButton.GPIOPinConfig.GPIO_PinNum 			= PIN0;
+	UserButton.GPIOPinConfig.GPIOspeed   			= HIGH_SPEED;
+	UserButton.GPIOPinConfig.GPIOmode    			= INPUT_MODE;
+	UserButton.GPIOPinConfig.GPIOPullUpPullDown 	= NO_PU_NO_PD;
 
 	//initializing the GPIO PA0 pin
 	GPIO_Init(&UserButton);
@@ -101,13 +101,13 @@ int main()
 
 	memset(&SPI2Config,0,sizeof(SPI_Handle_t));
 
-	SPI2Config.pSPI 					 = SPI2;
-	SPI2Config.sSPIConfig.SPI_deviceMode = SPI_MASTER;
-	SPI2Config.sSPIConfig.SPI_busConfig  = FULL_DUPLEX;
-	SPI2Config.sSPIConfig.SPI_SS         = SPI_SW_DIS;
-	SPI2Config.sSPIConfig.SPI_CPHA		 = SPI_CLK_LEADING_EDGE;
-	SPI2Config.sSPIConfig.SPI_DFF        = SPI_EIGHT_BIT;
-	SPI2Config.sSPIConfig.SPI_speed		 = PRESCALER_64;
+	SPI2Config.pSPI 								= SPI2;
+	SPI2Config.sSPIConfig.SPI_deviceMode 			= SPI_MASTER;
+	SPI2Config.sSPIConfig.SPI_busConfig  			= FULL_DUPLEX;
+	SPI2Config.sSPIConfig.SPI_SS         			= SPI_SW_DIS;
+	SPI2Config.sSPIConfig.SPI_CPHA		 			= SPI_CLK_LEADING_EDGE;
+	SPI2Config.sSPIConfig.SPI_DFF        			= SPI_EIGHT_BIT;
+	SPI2Config.sSPIConfig.SPI_speed		 			= PRESCALER_64;
 
 	SPI_Init(&SPI2Config);
 
